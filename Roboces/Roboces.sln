@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roboces.CSharp.Plugins", "Roboces.CSharp.Plugins.csproj", "{2ED3FDD5-BDF9-E8A0-70BF-6C4420C88B97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roboces.CSharp", "Roboces.CSharp.csproj", "{ED3188C5-EC55-D27F-FC36-753562BB78C2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2ED3FDD5-BDF9-E8A0-70BF-6C4420C88B97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ED3FDD5-BDF9-E8A0-70BF-6C4420C88B97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ED3FDD5-BDF9-E8A0-70BF-6C4420C88B97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ED3FDD5-BDF9-E8A0-70BF-6C4420C88B97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED3188C5-EC55-D27F-FC36-753562BB78C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED3188C5-EC55-D27F-FC36-753562BB78C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED3188C5-EC55-D27F-FC36-753562BB78C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED3188C5-EC55-D27F-FC36-753562BB78C2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
