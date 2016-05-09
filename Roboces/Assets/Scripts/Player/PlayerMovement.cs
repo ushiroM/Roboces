@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody Rigidbody;         
     private float MovementInputValue;    
     private float TurnInputValue;        
-    private float Acceleration = 2f;
+    private float Acceleration = 40f;
     private Animator anim;
 
     public Rigidbody Shell;
@@ -48,8 +48,6 @@ public class PlayerMovement : MonoBehaviour
         // Store the player's input and make sure the audio for the engine is playing.
         MovementInputValue = Input.GetAxis(MovementAxisName);
         TurnInputValue = Input.GetAxis(TurnAxisName);
-
-        Debug.Log(Fired);
         Fired = false;
         if (Input.GetButtonUp(FireButton) && !Fired)
         {
