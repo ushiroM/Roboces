@@ -1,18 +1,29 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class IASimple : MonoBehaviour {
 
 
-    public Transform target;
+    [HideInInspector] public Transform[] targets;
     NavMeshAgent agente;
-	// Use this for initialization
+    private int destino = 0;
+
 	void Start () {
         agente = GetComponent<NavMeshAgent>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        agente.SetDestination(target.position);
+        NextWaypoint();
+    }
+
+    private void NextWaypoint()
+    {
+        agente.SetDestination(targets[destino].position);
+        destino = (destino + 1) % targets.Length;
+
+        Debug.Log(targets[destino].name + " destino: " + destino);
+    }
+
+    // Update is called once per frame
+    void Update () {
+        if (agente.remainingDistance < 1.5f) NextWaypoint();
 	}
 }
