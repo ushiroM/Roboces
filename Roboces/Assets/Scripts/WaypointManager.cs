@@ -7,13 +7,18 @@ public class WaypointManager : MonoBehaviour {
     GameObject enemigo;
     IASimple Simple;
     public static int waypointSize;
+    GameObject player;
+    controlCheckpoint controlPlayer;
 
-	void Start () {
+	void Awake () {
+        player = GameObject.FindGameObjectWithTag("Player");
+        controlPlayer = player.GetComponent<controlCheckpoint>();
         waypoints = GetComponentsInChildren<Transform>();
+        controlPlayer.checkpoints = waypoints;
         enemigo = GameObject.FindGameObjectWithTag("Enemy");
         Simple = enemigo.GetComponent<IASimple>();
         waypointSize = waypoints.Length;
         Simple.targets = waypoints;
-
+        
 	}
 }
