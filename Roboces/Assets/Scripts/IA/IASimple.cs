@@ -18,8 +18,6 @@ public class IASimple : MonoBehaviour {
     {
         agente.SetDestination(targets[destino].position);
         destino = (destino + 1) % targets.Length;
-
-        Debug.Log(targets[destino].name + " destino: " + destino);
     }
 
     // Update is called once per frame
