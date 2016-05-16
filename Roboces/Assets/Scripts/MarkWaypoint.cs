@@ -18,14 +18,19 @@ public class MarkWaypoint : MonoBehaviour {
     void OnTriggerEnter(Collider other) {
         if (other.gameObject == player)
         {
-           if(controlPlayer.checkpoint == transform)
-           {
+            playerWay++;
+            if (playerWay > enemyWay) PositionManager.position = 1;
+
+            if (controlPlayer.checkpoint == transform)
+            {
                 controlPlayer.nextWaypoint();
-                //Debug.Log(this.name);
-           }  
+            }
         }
         else
+        {
             enemyWay++;
+            if (enemyWay > playerWay) PositionManager.position = 2;
+        }
 
 	}
 }

@@ -67,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Move();
         Turn();
+        Debug.Log(Speed);
     }
 
 
@@ -104,5 +105,11 @@ public class PlayerMovement : MonoBehaviour
         float turn = TurnInputValue * TurnSpeed * Time.deltaTime;
         Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
         Rigidbody.MoveRotation(Rigidbody.rotation * turnRotation);
+    }
+
+    public void wallCollide(bool collide)
+    {
+        while (collide == true)
+            Acceleration = Acceleration * -1;
     }
 }

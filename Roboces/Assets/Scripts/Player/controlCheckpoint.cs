@@ -5,11 +5,10 @@ public class controlCheckpoint : MonoBehaviour {
 
     [HideInInspector]public Transform[] checkpoints;
     int index ;
-    public Transform checkpoint;
-    public bool lapComplete = false;
+    [HideInInspector]public Transform checkpoint;
+    [HideInInspector]public bool lapComplete = false;
 
     void Start () {
-        //  nextWaypoint();
         index = 1;
         checkpoint = checkpoints[index];
 
@@ -28,10 +27,6 @@ public class controlCheckpoint : MonoBehaviour {
         }
         checkpoint = checkpoints[index];
         
-    }
-    void Update()
-    {
-        Debug.Log("Destino: " + checkpoint + " index: " + index);
     }
 
 }
