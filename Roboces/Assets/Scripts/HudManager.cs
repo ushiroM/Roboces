@@ -14,7 +14,7 @@ public class HudManager : MonoBehaviour {
     void Awake()
     {
         text = GetComponent<Text>();
-        lap = 0;
+        lap = 1;
         player = GameObject.FindGameObjectWithTag("Player");
         enemy = GameObject.FindGameObjectWithTag("Enemy");
     }

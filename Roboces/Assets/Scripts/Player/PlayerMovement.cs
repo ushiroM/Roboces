@@ -67,7 +67,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Move();
         Turn();
-        Debug.Log(Speed);
     }
 
 

@@ -7,17 +7,24 @@ public class IASimple : MonoBehaviour {
 
     [HideInInspector] public Transform[] targets;
     NavMeshAgent agente;
-    private int destino = 0;
+    private int destino = 1;
 
 	void Start () {
         agente = GetComponent<NavMeshAgent>();
-        NextWaypoint();
+        agente.SetDestination(targets[destino].position);
     }
 
     private void NextWaypoint()
     {
+        if(destino + 1 > targets.Length)
+        {
+            destino = 1;
+        }
+        else
+        {
+            destino = (destino + 1) % targets.Length;
+        }
         agente.SetDestination(targets[destino].position);
-        destino = (destino + 1) % targets.Length;
     }
 
     // Update is called once per frame
