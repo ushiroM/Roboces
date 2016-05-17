@@ -7,6 +7,7 @@ public class MarkCheckpoint : MonoBehaviour {
     GameObject enemy;
     public static int enemyLap = 0;
     controlCheckpoint controlPlayer;
+    public static bool enemyLapComplete = false;
    
   
 	void Awake() {
@@ -21,16 +22,18 @@ public class MarkCheckpoint : MonoBehaviour {
         {
             if (controlPlayer.lapComplete == true)
             {
+                MarkWaypoint.playerWay = 0;
                 controlPlayer.lapComplete = false;
                 HudManager.lap++;
             }
         }
         else if (other.gameObject == enemy)
         {
-            if (MarkWaypoint.enemyWay == WaypointManager.waypointSize)
-            {
+            if (enemyLapComplete == true){
                 MarkWaypoint.enemyWay = 0;
+                enemyLapComplete = false;
                 enemyLap++;
+                
             }
         }
 

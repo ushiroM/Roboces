@@ -26,10 +26,17 @@ public class MarkWaypoint : MonoBehaviour {
                 controlPlayer.nextWaypoint();
             }
         }
-        else
+        else if (other.gameObject == enemy)
         {
             enemyWay++;
-            if (enemyWay > playerWay) PositionManager.position = 2;
+            Debug.Log(enemyWay);
+            if (enemyWay == WaypointManager.waypointSize)
+                MarkCheckpoint.enemyLapComplete = true;
+            if (controlPlayer.lapComplete == false && MarkCheckpoint.enemyLapComplete == false)
+                if (enemyWay > playerWay)
+                    PositionManager.position = 2;
+
+
         }
 
 	}
