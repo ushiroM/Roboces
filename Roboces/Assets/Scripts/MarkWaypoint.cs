@@ -5,8 +5,8 @@ public class MarkWaypoint : MonoBehaviour {
 
     GameObject player;
     GameObject enemy;
-    public static int playerWay = 0;
-    public static int enemyWay = 0;
+    public static int playerWay = 1;
+    public static int enemyWay = 1;
     controlCheckpoint controlPlayer;
 
     void Start () {
@@ -19,7 +19,6 @@ public class MarkWaypoint : MonoBehaviour {
         if (other.gameObject == player)
         {
             playerWay++;
-            if (playerWay > enemyWay) PositionManager.position = 1;
 
             if (controlPlayer.checkpoint == transform)
             {
@@ -29,15 +28,20 @@ public class MarkWaypoint : MonoBehaviour {
         else if (other.gameObject == enemy)
         {
             enemyWay++;
-            Debug.Log(enemyWay);
+            //Debug.Log(enemyWay);
             if (enemyWay == WaypointManager.waypointSize)
                 MarkCheckpoint.enemyLapComplete = true;
-            if (controlPlayer.lapComplete == false && MarkCheckpoint.enemyLapComplete == false)
-                if (enemyWay > playerWay)
-                    PositionManager.position = 2;
-
-
+            //if (controlPlayer.lapComplete == false && MarkCheckpoint.enemyLapComplete == false)
+            //    if (enemyWay > playerWay)
+            //        PositionManager.position = 2;
         }
-
 	}
+
+    void Update()
+    {
+        if (controlPlayer.lapComplete == false && MarkCheckpoint.enemyLapComplete == false)
+            if (playerWay > enemyWay) PositionManager.position = 1;
+            else
+                PositionManager.position = 2;
+    }
 }

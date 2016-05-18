@@ -22,7 +22,7 @@ public class MarkCheckpoint : MonoBehaviour {
         {
             if (controlPlayer.lapComplete == true)
             {
-                MarkWaypoint.playerWay = 0;
+                MarkWaypoint.playerWay = 1;
                 controlPlayer.lapComplete = false;
                 HudManager.lap++;
             }
@@ -30,10 +30,10 @@ public class MarkCheckpoint : MonoBehaviour {
         else if (other.gameObject == enemy)
         {
             if (enemyLapComplete == true){
-                MarkWaypoint.enemyWay = 0;
+                MarkWaypoint.enemyWay = 1;
                 enemyLapComplete = false;
                 enemyLap++;
-                
+                Debug.Log(enemyLap);
             }
         }
 
