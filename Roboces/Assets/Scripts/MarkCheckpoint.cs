@@ -5,7 +5,8 @@ public class MarkCheckpoint : MonoBehaviour {
 
     GameObject player;
     GameObject enemy;
-    public static int enemyLap = 0;
+    public static int enemyLap = 1;
+    public static int playerLap = 1;
     controlCheckpoint controlPlayer;
     public static bool enemyLapComplete = false;
    
@@ -22,20 +23,18 @@ public class MarkCheckpoint : MonoBehaviour {
         {
             if (controlPlayer.lapComplete == true)
             {
+                playerLap++;
                 MarkWaypoint.playerWay = 1;
                 controlPlayer.lapComplete = false;
-                HudManager.lap++;
             }
         }
         else if (other.gameObject == enemy)
         {
             if (enemyLapComplete == true){
+                enemyLap++;
                 MarkWaypoint.enemyWay = 1;
                 enemyLapComplete = false;
-                enemyLap++;
-                Debug.Log(enemyLap);
             }
         }
-
     }
 }

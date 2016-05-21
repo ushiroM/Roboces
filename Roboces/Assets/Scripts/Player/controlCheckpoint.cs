@@ -20,7 +20,6 @@ public class controlCheckpoint : MonoBehaviour {
         {
             index = 1;
             lapComplete = true;
-            MarkWaypoint.playerWay = 0;
         }
         else
         {

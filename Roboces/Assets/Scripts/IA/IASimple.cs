@@ -27,7 +27,6 @@ public class IASimple : MonoBehaviour {
         agente.SetDestination(targets[destino].position);
     }
 
-    // Update is called once per frame
     void Update () {
         if (agente.remainingDistance < 1.5f) NextWaypoint();
 	}
