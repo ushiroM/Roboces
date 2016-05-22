@@ -195,6 +195,7 @@
     <Compile Include="Assets\NGUI\Scripts\UI\UITooltip.cs" />
     <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
     <Compile Include="Assets\Scripts\Camera\SmoothFollow.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\HUD\HudManager.cs" />
     <Compile Include="Assets\Scripts\HUD\PositionManager.cs" />
     <Compile Include="Assets\Scripts\IA\IASimple.cs" />
@@ -202,7 +203,7 @@
     <Compile Include="Assets\Scripts\MarkWaypoint.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Player\controlCheckpoint.cs" />
-    <Compile Include="Assets\Scripts\ReverseNormals.cs" />
+    <Compile Include="Assets\Scripts\TargetFrameRate.cs" />
     <Compile Include="Assets\Scripts\WaypointManager.cs" />
     <Compile Include="Assets\Scripts\loadScene.cs" />
   </ItemGroup>
