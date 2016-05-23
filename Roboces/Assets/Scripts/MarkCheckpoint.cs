@@ -5,16 +5,25 @@ public class MarkCheckpoint : MonoBehaviour {
 
     GameObject player;
     GameObject enemy;
-    public static int enemyLap = 1;
-    public static int playerLap = 1;
+    public static int enemyLap;
+    public static int playerLap;
+	public static int maxlaps;
     controlCheckpoint controlPlayer;
     public static bool enemyLapComplete = false;
-   
+	PlayerMovement playerMov;
+	IASimple enemyIA;
   
+	void Start(){
+		enemyLap = 1;
+		playerLap = 1;
+		maxlaps = 1;
+	}
 	void Awake() {
         player = GameObject.FindGameObjectWithTag("Player");
         controlPlayer = player.GetComponent<controlCheckpoint>();
+		playerMov = player.GetComponent<PlayerMovement> ();
         enemy = GameObject.FindGameObjectWithTag("Enemy");
+		enemyIA = enemy.GetComponent<IASimple> ();
     }
 
     void OnTriggerEnter(Collider other)

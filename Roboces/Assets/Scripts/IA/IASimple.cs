@@ -9,9 +9,13 @@ public class IASimple : MonoBehaviour {
     NavMeshAgent agente;
     private int destino = 1;
     private bool activo;
+	Animator animator;
+	public GameObject particle;
 
 	void Start () {
         agente = GetComponent<NavMeshAgent>();
+		animator = GetComponent<Animator> ();
+		particle.SetActive (false);
         if(activo)
             agente.SetDestination(targets[destino].position);
     }
@@ -35,12 +39,24 @@ public class IASimple : MonoBehaviour {
     void Update () {
         if (agente.remainingDistance < 1.5f) NextWaypoint();
 	}
+
     public void DisableIA()
     {
         activo = false;
+		animator.SetBool ("IArun", false);
+		particle.SetActive (false);
+
     }
+
     public void EnableIA()
     {
         activo = true;
+		animator.SetBool ("IArun", true);
+		particle.SetActive (true);
     }
+
+	public void TurnOffIA()
+	{
+		agente.Stop ();
+	}
 }

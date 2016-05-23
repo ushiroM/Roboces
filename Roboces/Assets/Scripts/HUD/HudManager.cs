@@ -18,6 +18,6 @@ public class HudManager : MonoBehaviour {
 
    void Update()
     {
-        text.text = "LAP" + " " + MarkCheckpoint.playerLap + "/3";  
+        text.text = "LAP" + " " + MarkCheckpoint.playerLap + "/"+MarkCheckpoint.maxlaps;  
     }
 }

@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private float TurnInputValue;        
     private float Acceleration = 40f;
     private Animator anim;
+	public GameObject particle;
 
     public Rigidbody Shell;
     public Transform FireTransform;
@@ -40,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
         TurnAxisName = "Horizontal";
         FireButton = "Fire1";
         Speed = 0;
+		particle.SetActive (false);
     }
     
 
@@ -76,18 +78,21 @@ public class PlayerMovement : MonoBehaviour
         if (MovementInputValue > 0.1f)
         {
             anim.SetBool("Moving", true);
+			particle.SetActive (true);
             Speed = Speed + Acceleration * Time.deltaTime;
             if (Speed > SpeedLimit) Speed = SpeedLimit;
         }
         else if(MovementInputValue == 0)
         {
             anim.SetBool("Moving", false);
+			particle.SetActive (false);
             Speed = Speed - Acceleration * 10 * Time.deltaTime;
             if (Speed < 0) Speed = 0;
         }
         else
         {
             anim.SetBool("Moving", true);
+			particle.SetActive (true);
             Speed = Speed - Acceleration * Time.deltaTime;
             if (Speed < -SpeedLimit) Speed = -SpeedLimit;
         }

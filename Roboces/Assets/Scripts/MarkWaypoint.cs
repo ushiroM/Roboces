@@ -5,13 +5,15 @@ public class MarkWaypoint : MonoBehaviour {
 
     GameObject player;
     GameObject enemy;
-    public static int playerWay = 1;
-    public static int enemyWay = 1;
+    public static int playerWay;
+    public static int enemyWay;
     bool playerCollided = false;
     bool enemyCollided = false;
     controlCheckpoint controlPlayer;
 
     void Start () {
+		playerWay = 1;
+		enemyWay = 1;
         player = GameObject.FindGameObjectWithTag("Player");
         controlPlayer = player.GetComponent<controlCheckpoint>();
         enemy = GameObject.FindGameObjectWithTag("Enemy");

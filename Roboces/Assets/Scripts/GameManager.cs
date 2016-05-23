@@ -1,17 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
     public float m_StartDelay = 3f;
     public float m_EndDelay = 3f;
-    public Text m_MessageText;
+    public Text Countdown;
+	public Text Victory;
 
     GameObject player;
     GameObject enemy;
     IASimple enemyIA;
-    PlayerMovement playermov;
+    PlayerMovement playerMov;
+	Animator playerAnim;
+	Animator enemyAnim;
+	CapsuleCollider playercapsule;
 
     private WaitForSeconds m_StartWait;
     private WaitForSeconds m_EndWait;
@@ -22,10 +27,13 @@ public class GameManager : MonoBehaviour {
         m_EndWait = new WaitForSeconds(m_EndDelay);
 
         player = GameObject.FindGameObjectWithTag("Player");
+		playerMov = player.GetComponent<PlayerMovement>();
+		playerAnim = player.GetComponent<Animator> ();
+		playercapsule = player.GetComponent<CapsuleCollider> ();
+
         enemy = GameObject.FindGameObjectWithTag("Enemy");
         enemyIA = enemy.GetComponent<IASimple>();
-        playermov = player.GetComponent<PlayerMovement>();
-
+		enemyAnim = enemy.GetComponent<Animator> ();
 
         StartCoroutine(GameLoop());
     }
@@ -35,43 +43,28 @@ public class GameManager : MonoBehaviour {
   
         yield return StartCoroutine(RoundStarting());
 
-       /// Once the 'RoundStarting' coroutine is finished, run the 'RoundPlaying' coroutine but don't return until it's finished.
         yield return StartCoroutine(RoundPlaying());
 
-      /*// Once execution has returned here, run the 'RoundEnding' coroutine, again don't return until it's finished.
-        yield return StartCoroutine(RoundEnding());
 
-        // This code is not run until 'RoundEnding' has finished.  At which point, check if a game winner has been found.
-        if (m_GameWinner != null)
-        {
-            // If there is a game winner, restart the level.
-            Application.LoadLevel(Application.loadedLevel);
-        }
-        else
-        {
-            // If there isn't a winner yet, restart this coroutine so the loop continues.
-            // Note that this coroutine doesn't yield.  This means that the current version of the GameLoop will end.
-            StartCoroutine(GameLoop());
-        }*/
     }
 
     private IEnumerator RoundStarting()
     {
         DisableControl();
 
-        m_MessageText.text = "3";
+        Countdown.text = "3";
 
         yield return new WaitForSeconds(1.5f);
 
-        m_MessageText.text = "2";
+        Countdown.text = "2";
 
         yield return new WaitForSeconds(1.5f);
 
-        m_MessageText.text = "1";
+        Countdown.text = "1";
 
         yield return new WaitForSeconds(1.5f);
 
-        m_MessageText.text = "Ya!";
+        Countdown.text = "Ya!";
     }
 
     private IEnumerator RoundPlaying()
@@ -80,20 +73,54 @@ public class GameManager : MonoBehaviour {
 
         yield return new WaitForSeconds(2);
 
-        m_MessageText.text = string.Empty;
+        Countdown.text = string.Empty;
        
     }
+
+	private IEnumerator EndGame()
+	{
+		playerMov.enabled = false;
+		enemyIA.TurnOffIA ();
+
+		if (PositionManager.position == 1) {
+			playerAnim.SetBool ("Win", true);
+			enemyAnim.SetBool ("Lose", true);
+			Victory.text = "¡Felicidades! \n \n" + "Has acabado primero";
+
+		} else {
+			enemyAnim.SetBool ("Win", true);
+			playerAnim.SetBool ("Lose", true);
+			playercapsule.direction = 0;
+			Victory.text = "Lástima... \n \n" + "Has acabado segundo";
+		}
+
+		yield return new WaitForSeconds(10f);
+
+		loadScene ();
+	}
 
    
     private void DisableControl()
     {
         enemyIA.DisableIA();
-        playermov.enabled = false;
+        playerMov.enabled = false;
     }
+
     private void EnableControl()
     {
 
         enemyIA.EnableIA();
-        playermov.enabled = true;
+        playerMov.enabled = true;
     }
+
+	void Update(){
+
+		if (MarkCheckpoint.playerLap > MarkCheckpoint.maxlaps) {
+			StartCoroutine (EndGame ());
+		}
+	}
+
+	void loadScene(){
+		SceneManager.LoadScene("Menu");
+	}
 }
