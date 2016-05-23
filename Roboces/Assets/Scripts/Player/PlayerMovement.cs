@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     public float Speed = 20f;            
     public float TurnSpeed = 180f;
     public float SpeedLimit = 20f;
+    private float initialSpeedLimit;
 
     private string MovementAxisName;     
     private string TurnAxisName;         
@@ -20,6 +21,9 @@ public class PlayerMovement : MonoBehaviour
     public Transform FireTransform;
     private string FireButton;
     private bool Fired;
+    private bool Sprint = false;
+    private float SprintTimer;
+    private float SprintCooldown;
 
     private void Awake()
     {
@@ -42,28 +46,66 @@ public class PlayerMovement : MonoBehaviour
         FireButton = "Fire1";
         Speed = 0;
 		particle.SetActive (false);
+        initialSpeedLimit = SpeedLimit;
     }
     
-
     private void Update()
     {
-        // Store the player's input and make sure the audio for the engine is playing.
+
         MovementInputValue = Input.GetAxis(MovementAxisName);
         TurnInputValue = Input.GetAxis(TurnAxisName);
-        Fired = false;
-        if (Input.GetButtonUp(FireButton) && !Fired)
+
+        if (Input.GetButtonUp(FireButton))
         {
-            Fire();
+            if (Sprint == false)
+            {
+                Sprint = true;
+                SpeedLimit = SpeedLimit * 1.5f;
+                Speed = SpeedLimit;
+                anim.speed = 1.5f;
+                SprintCooldown = 0;
+                SprintTimer = 0f;
+            }
+            
         }
+
+        if (Sprint == true)
+        {
+
+            SprintTimer += Time.deltaTime;
+            SprintCooldown += Time.deltaTime;
+            HudManager.SprintUp = false;
+        }
+
+        if (SprintTimer >= 5f)
+        {
+            
+            SpeedLimit = initialSpeedLimit;
+            anim.speed = 1;
+            
+        }
+
+        if (SprintCooldown >= 12f)
+        {
+            Sprint = false;
+            SprintTimer = 0f;
+            HudManager.SprintUp = true;
+        }
+
+        //Fired = false;
+        //if (Input.GetButtonUp(FireButton) && !Fired)
+        //{
+        //    Fire();
+        //}
     }
 
-    private void Fire()
-    {
-        Fired = true;
-        Vector3 adjust = new Vector3(0, 0, 0);
-        Rigidbody shellInstance = Instantiate(Shell, FireTransform.position, FireTransform.rotation) as Rigidbody;
-        shellInstance.velocity = 40f * FireTransform.forward;
-    }
+    //private void Fire()
+    //{
+    //    Fired = true;
+    //    Vector3 adjust = new Vector3(0, 0, 0);
+    //    Rigidbody shellInstance = Instantiate(Shell, FireTransform.position, FireTransform.rotation) as Rigidbody;
+    //    shellInstance.velocity = 40f * FireTransform.forward;
+    //}
 
     private void FixedUpdate()
     {
