@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour {
 	Animator playerAnim;
 	Animator enemyAnim;
 	CapsuleCollider playercapsule;
+	AudioSource audio;
 
     private WaitForSeconds m_StartWait;
     private WaitForSeconds m_EndWait;
@@ -30,6 +31,8 @@ public class GameManager : MonoBehaviour {
 		playerMov = player.GetComponent<PlayerMovement>();
 		playerAnim = player.GetComponent<Animator> ();
 		playercapsule = player.GetComponent<CapsuleCollider> ();
+		audio = player.GetComponent<AudioSource> ();
+
 
         enemy = GameObject.FindGameObjectWithTag("Enemy");
         enemyIA = enemy.GetComponent<IASimple>();
@@ -104,6 +107,7 @@ public class GameManager : MonoBehaviour {
     {
         enemyIA.DisableIA();
         playerMov.enabled = false;
+		audio.Stop ();
     }
 
     private void EnableControl()
@@ -111,6 +115,9 @@ public class GameManager : MonoBehaviour {
 
         enemyIA.EnableIA();
         playerMov.enabled = true;
+		audio.Play ();
+
+	
     }
 
 	void Update(){

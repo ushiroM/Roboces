@@ -18,6 +18,7 @@ public class IASimple : MonoBehaviour {
     private float SprintTimer;
     private float initialSpeed;
     private float initialAcceleration;
+	private bool IAenable = false;
 
     void Start () {
 
@@ -54,7 +55,7 @@ public class IASimple : MonoBehaviour {
         if (agente.remainingDistance < 1.5f) NextWaypoint();
 
         var distance = transform.position - player.transform.position;
-        if (distance.sqrMagnitude < 80)
+        if (distance.sqrMagnitude < 80 && IAenable == true)
         {
             if (Sprint == false)
             {
@@ -93,6 +94,7 @@ public class IASimple : MonoBehaviour {
     public void DisableIA()
     {
         activo = false;
+		IAenable = false;
 		animator.SetBool ("IArun", false);
 		particle.SetActive (false);
 		particleVelocidad.SetActive (false);
@@ -101,9 +103,10 @@ public class IASimple : MonoBehaviour {
     public void EnableIA()
     {
         activo = true;
+		IAenable = true;
 		animator.SetBool ("IArun", true);
 		particle.SetActive (true);
-		particleVelocidad.SetActive (true);
+		//particleVelocidad.SetActive (true);
     }
 
 	public void TurnOffIA()

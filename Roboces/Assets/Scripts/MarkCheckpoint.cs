@@ -16,7 +16,7 @@ public class MarkCheckpoint : MonoBehaviour {
 	void Start(){
 		enemyLap = 1;
 		playerLap = 1;
-		maxlaps = 1;
+		maxlaps = 3;
 	}
 	void Awake() {
         player = GameObject.FindGameObjectWithTag("Player");

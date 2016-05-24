@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
 	public GameObject particle;
 	public GameObject particleVelocidad;
-	public AudioSource runningAudio;
+	public static AudioSource runningAudio;
 
     //public Rigidbody Shell;
     //public Transform FireTransform;
@@ -47,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
         TurnAxisName = "Horizontal";
         FireButton = "Fire1";
         Speed = 0;
+		runningAudio = GetComponent<AudioSource> ();
 		particle.SetActive (false);
 		particleVelocidad.SetActive (false);
         initialSpeedLimit = SpeedLimit;
@@ -54,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
     
     private void Update()
     {
-		runningAudio.Play ();
+
         MovementInputValue = Input.GetAxis(MovementAxisName);
         TurnInputValue = Input.GetAxis(TurnAxisName);
 
@@ -128,7 +129,7 @@ public class PlayerMovement : MonoBehaviour
 			particle.SetActive (true);
             Speed = Speed + Acceleration * Time.deltaTime;
             if (Speed > SpeedLimit) Speed = SpeedLimit;
-			runningAudio.Play ();
+			//runningAudio.Play ();
         }
         else if(MovementInputValue == 0)
         {
@@ -136,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
 			particle.SetActive (false);
             Speed = Speed - Acceleration * 10 * Time.deltaTime;
             if (Speed < 0) Speed = 0;
-			runningAudio.Stop ();
+			//runningAudio.Stop ();
         }
         else
         {
