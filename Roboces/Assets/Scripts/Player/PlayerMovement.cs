@@ -16,9 +16,11 @@ public class PlayerMovement : MonoBehaviour
     private float Acceleration = 40f;
     private Animator anim;
 	public GameObject particle;
+	public GameObject particleVelocidad;
+	public AudioSource runningAudio;
 
-    public Rigidbody Shell;
-    public Transform FireTransform;
+    //public Rigidbody Shell;
+    //public Transform FireTransform;
     private string FireButton;
     private bool Fired;
     private bool Sprint = false;
@@ -46,12 +48,13 @@ public class PlayerMovement : MonoBehaviour
         FireButton = "Fire1";
         Speed = 0;
 		particle.SetActive (false);
+		particleVelocidad.SetActive (false);
         initialSpeedLimit = SpeedLimit;
     }
     
     private void Update()
     {
-
+		runningAudio.Play ();
         MovementInputValue = Input.GetAxis(MovementAxisName);
         TurnInputValue = Input.GetAxis(TurnAxisName);
 
@@ -60,6 +63,7 @@ public class PlayerMovement : MonoBehaviour
             if (Sprint == false)
             {
                 Sprint = true;
+				particleVelocidad.SetActive (true);
                 SpeedLimit = SpeedLimit * 1.5f;
                 Speed = SpeedLimit;
                 anim.speed = 1.5f;
@@ -79,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (SprintTimer >= 5f)
         {
-            
+			particleVelocidad.SetActive (false);
             SpeedLimit = initialSpeedLimit;
             anim.speed = 1;
             
@@ -87,6 +91,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (SprintCooldown >= 12f)
         {
+			
             Sprint = false;
             SprintTimer = 0f;
             HudManager.SprintUp = true;
@@ -116,13 +121,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        // Adjust the position of the tank based on the player's input.
+       
         if (MovementInputValue > 0.1f)
         {
             anim.SetBool("Moving", true);
 			particle.SetActive (true);
             Speed = Speed + Acceleration * Time.deltaTime;
             if (Speed > SpeedLimit) Speed = SpeedLimit;
+			runningAudio.Play ();
         }
         else if(MovementInputValue == 0)
         {
@@ -130,6 +136,7 @@ public class PlayerMovement : MonoBehaviour
 			particle.SetActive (false);
             Speed = Speed - Acceleration * 10 * Time.deltaTime;
             if (Speed < 0) Speed = 0;
+			runningAudio.Stop ();
         }
         else
         {
@@ -137,6 +144,7 @@ public class PlayerMovement : MonoBehaviour
 			particle.SetActive (true);
             Speed = Speed - Acceleration * Time.deltaTime;
             if (Speed < -SpeedLimit) Speed = -SpeedLimit;
+			runningAudio.Play ();
         }
 
         Vector3 movement = transform.forward * Speed * Time.deltaTime;

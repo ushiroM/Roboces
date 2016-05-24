@@ -11,6 +11,7 @@ public class IASimple : MonoBehaviour {
     private bool activo;
 	Animator animator;
 	public GameObject particle;
+	public GameObject particleVelocidad;
     GameObject player;
     private bool Sprint;
     private float SprintCooldown;
@@ -24,6 +25,7 @@ public class IASimple : MonoBehaviour {
 		animator = GetComponent<Animator> ();
         player = GameObject.FindGameObjectWithTag("Player");
 		particle.SetActive (false);
+		particleVelocidad.SetActive (false);
         initialAcceleration = agente.acceleration;
         initialSpeed = agente.speed;
 
@@ -56,6 +58,7 @@ public class IASimple : MonoBehaviour {
         {
             if (Sprint == false)
             {
+				particleVelocidad.SetActive (true);
                 Sprint = true;
                 animator.speed = 1.5f;
                 agente.speed *= 1.5f;
@@ -67,7 +70,6 @@ public class IASimple : MonoBehaviour {
 
         if (Sprint == true)
         {
-            Debug.Log("Sprint IA");
             SprintTimer += Time.deltaTime;
             SprintCooldown += Time.deltaTime;
 
@@ -75,7 +77,7 @@ public class IASimple : MonoBehaviour {
 
         if (SprintTimer >= 5f)
         {
-            Debug.Log("No Sprint IA");
+			particleVelocidad.SetActive (false);
             animator.speed = 1;
             agente.speed = initialSpeed;
             agente.acceleration = initialAcceleration;
@@ -93,6 +95,7 @@ public class IASimple : MonoBehaviour {
         activo = false;
 		animator.SetBool ("IArun", false);
 		particle.SetActive (false);
+		particleVelocidad.SetActive (false);
     }
 
     public void EnableIA()
@@ -100,6 +103,7 @@ public class IASimple : MonoBehaviour {
         activo = true;
 		animator.SetBool ("IArun", true);
 		particle.SetActive (true);
+		particleVelocidad.SetActive (true);
     }
 
 	public void TurnOffIA()
