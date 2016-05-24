@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour {
 	Animator playerAnim;
 	Animator enemyAnim;
 	CapsuleCollider playercapsule;
+	CapsuleCollider iacapsule;
 	AudioSource audio;
 
     private WaitForSeconds m_StartWait;
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour {
         enemy = GameObject.FindGameObjectWithTag("Enemy");
         enemyIA = enemy.GetComponent<IASimple>();
 		enemyAnim = enemy.GetComponent<Animator> ();
+		iacapsule = enemy.GetComponent<CapsuleCollider> ();
 
         StartCoroutine(GameLoop());
     }
@@ -88,6 +90,7 @@ public class GameManager : MonoBehaviour {
 		if (PositionManager.position == 1) {
 			playerAnim.SetBool ("Win", true);
 			enemyAnim.SetBool ("Lose", true);
+			iacapsule.direction = 0;
 			Victory.text = "¡Felicidades! \n \n" + "Has acabado primero";
 
 		} else {

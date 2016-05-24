@@ -55,7 +55,7 @@ public class IASimple : MonoBehaviour {
         if (agente.remainingDistance < 1.5f) NextWaypoint();
 
         var distance = transform.position - player.transform.position;
-        if (distance.sqrMagnitude < 80 && IAenable == true)
+		if ((distance.sqrMagnitude < 80 && IAenable == true) || (distance.sqrMagnitude > 300 && IAenable == true))
         {
             if (Sprint == false)
             {
