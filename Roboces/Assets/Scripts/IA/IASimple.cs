@@ -19,6 +19,10 @@ public class IASimple : MonoBehaviour {
     private float initialSpeed;
     private float initialAcceleration;
 	private bool IAenable = false;
+	[HideInInspector]public int position = 0;
+	public int enemyWay = 1;
+	public int lap = 1;
+	public bool lapComplete = false;
 
     void Start () {
 

@@ -7,11 +7,11 @@ public class GameManager : MonoBehaviour {
 
     public float m_StartDelay = 3f;
     public float m_EndDelay = 3f;
-    public Text Countdown;
-	public Text Victory;
+    public UILabel Countdown;
+	public UILabel Victory;
 
     GameObject player;
-    GameObject enemy;
+    GameObject[] enemies;
     IASimple enemyIA;
     PlayerMovement playerMov;
 	Animator playerAnim;
@@ -34,23 +34,16 @@ public class GameManager : MonoBehaviour {
 		playercapsule = player.GetComponent<CapsuleCollider> ();
 		audio = player.GetComponent<AudioSource> ();
 
-
-        enemy = GameObject.FindGameObjectWithTag("Enemy");
-        enemyIA = enemy.GetComponent<IASimple>();
-		enemyAnim = enemy.GetComponent<Animator> ();
-		iacapsule = enemy.GetComponent<CapsuleCollider> ();
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
         StartCoroutine(GameLoop());
     }
 
     private IEnumerator GameLoop()
     {
-  
         yield return StartCoroutine(RoundStarting());
 
         yield return StartCoroutine(RoundPlaying());
-
-
     }
 
     private IEnumerator RoundStarting()
@@ -85,16 +78,31 @@ public class GameManager : MonoBehaviour {
 	private IEnumerator EndGame()
 	{
 		playerMov.enabled = false;
-		enemyIA.TurnOffIA ();
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            enemyIA = enemies[i].GetComponent<IASimple>();
+            enemyIA.TurnOffIA();
+        }
 
 		if (PositionManager.position == 1) {
 			playerAnim.SetBool ("Win", true);
-			enemyAnim.SetBool ("Lose", true);
-			iacapsule.direction = 0;
+
+            for(int i =0; i < enemies.Length; i++)
+            {
+                enemyAnim = enemies[i].GetComponent<Animator>();
+                iacapsule = enemies[i].GetComponent<CapsuleCollider>();
+                enemyAnim.SetBool("Lose", true);
+                iacapsule.direction = 0;
+            }
+			
 			Victory.text = "¡Felicidades! \n \n" + "Has acabado primero";
 
 		} else {
-			enemyAnim.SetBool ("Win", true);
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                enemyAnim = enemies[i].GetComponent<Animator>();
+                enemyAnim.SetBool("Win", true);
+            }
 			playerAnim.SetBool ("Lose", true);
 			playercapsule.direction = 0;
 			Victory.text = "Lástima... \n \n" + "Has acabado segundo";
@@ -108,19 +116,24 @@ public class GameManager : MonoBehaviour {
    
     private void DisableControl()
     {
-        enemyIA.DisableIA();
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            enemyIA = enemies[i].GetComponent<IASimple>();
+            enemyIA.DisableIA();
+        }
         playerMov.enabled = false;
 		audio.Stop ();
     }
 
     private void EnableControl()
     {
-
-        enemyIA.EnableIA();
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            enemyIA = enemies[i].GetComponent<IASimple>();
+            enemyIA.EnableIA();
+        }
         playerMov.enabled = true;
 		audio.Play ();
-
-	
     }
 
 	void Update(){

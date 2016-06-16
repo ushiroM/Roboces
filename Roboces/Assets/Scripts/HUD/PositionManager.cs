@@ -5,14 +5,14 @@ using UnityEngine.UI;
 public class PositionManager : MonoBehaviour {
 
     public static int position;
-    Text text;
+	UILabel text;
 
     void Awake () {
-        position = 2;
-        text = GetComponent<Text>();
+        position = 4;
+		text = GetComponent<UILabel>();
     }
 	
 	void Update () {
-        text.text = position + " " +"/2";
+        text.text = position + "º";
     }
 }

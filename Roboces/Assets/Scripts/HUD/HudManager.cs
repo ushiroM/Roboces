@@ -4,16 +4,16 @@ using UnityEngine.UI;
 
 public class HudManager : MonoBehaviour {
 
-    Text text;
+	UILabel text;
     GameObject player;
     GameObject enemy;
     public static bool SprintUp = true;
-    public RawImage SprintOn;
-    public RawImage SprintOff;
+    public UITexture SprintOn;
+    public UITexture SprintOff;
 
     void Awake()
     {
-        text = GetComponent<Text>();
+		text = GetComponent<UILabel>();
         player = GameObject.FindGameObjectWithTag("Player");
         enemy = GameObject.FindGameObjectWithTag("Enemy");
     }

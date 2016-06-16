@@ -4,7 +4,7 @@ using System.Collections;
 public class MarkCheckpoint : MonoBehaviour {
 
     GameObject player;
-    GameObject enemy;
+	GameObject[] enemies;
     public static int enemyLap;
     public static int playerLap;
 	public static int maxlaps;
@@ -14,16 +14,15 @@ public class MarkCheckpoint : MonoBehaviour {
 	IASimple enemyIA;
   
 	void Start(){
-		enemyLap = 1;
 		playerLap = 1;
 		maxlaps = 3;
 	}
+
 	void Awake() {
         player = GameObject.FindGameObjectWithTag("Player");
         controlPlayer = player.GetComponent<controlCheckpoint>();
 		playerMov = player.GetComponent<PlayerMovement> ();
-        enemy = GameObject.FindGameObjectWithTag("Enemy");
-		enemyIA = enemy.GetComponent<IASimple> ();
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
     }
 
     void OnTriggerEnter(Collider other)
@@ -37,13 +36,16 @@ public class MarkCheckpoint : MonoBehaviour {
                 controlPlayer.lapComplete = false;
             }
         }
-        else if (other.gameObject == enemy)
+        else
         {
-            if (enemyLapComplete == true){
-                enemyLap++;
-                MarkWaypoint.enemyWay = 1;
-                enemyLapComplete = false;
-            }
+			for (int i = 0; i < enemies.Length; i++) {
+				enemyIA = enemies[i].GetComponent<IASimple> ();
+				if (enemyIA.lapComplete == true) {
+					enemyIA.lap++;
+					enemyIA.enemyWay = 1;
+					enemyIA.lapComplete = false;
+				}
+			}
         }
     }
 }

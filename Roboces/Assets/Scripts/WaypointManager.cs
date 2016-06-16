@@ -4,7 +4,7 @@ using System.Collections;
 public class WaypointManager : MonoBehaviour {
 
     private Transform[] waypoints;
-    GameObject enemigo;
+    GameObject[] enemigo;
     IASimple Simple;
     public static int waypointSize;
     GameObject player;
@@ -15,10 +15,12 @@ public class WaypointManager : MonoBehaviour {
         controlPlayer = player.GetComponent<controlCheckpoint>();
         waypoints = GetComponentsInChildren<Transform>();
         controlPlayer.checkpoints = waypoints;
-        enemigo = GameObject.FindGameObjectWithTag("Enemy");
-        Simple = enemigo.GetComponent<IASimple>();
+        enemigo = GameObject.FindGameObjectsWithTag("Enemy");
         waypointSize = waypoints.Length;
-        Simple.targets = waypoints;
-        
+        for (int i = 0; i < enemigo.Length; i++)
+        {
+            Simple = enemigo[i].GetComponent<IASimple>();
+            Simple.targets = waypoints;
+        }   
 	}
 }
