@@ -5,8 +5,6 @@ using UnityEngine.UI;
 public class HudManager : MonoBehaviour {
 
 	UILabel text;
-    GameObject player;
-    GameObject enemy;
     public static bool SprintUp = true;
     public UITexture SprintOn;
     public UITexture SprintOff;
@@ -14,8 +12,6 @@ public class HudManager : MonoBehaviour {
     void Awake()
     {
 		text = GetComponent<UILabel>();
-        player = GameObject.FindGameObjectWithTag("Player");
-        enemy = GameObject.FindGameObjectWithTag("Enemy");
     }
 
    void Update()

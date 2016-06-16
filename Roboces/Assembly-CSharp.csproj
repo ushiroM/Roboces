@@ -181,6 +181,7 @@
      <Compile Include="Assets\Scripts\Player\controlCheckpoint.cs" />
      <Compile Include="Assets\Scripts\TargetFrameRate.cs" />
      <Compile Include="Assets\Scripts\WaypointManager.cs" />
+     <Compile Include="Assets\Scripts\floatingLight.cs" />
      <Compile Include="Assets\Scripts\loadScene.cs" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Depth Cutout.shader" />
      <None Include="Assets\NGUI\ReadMe - 3.5.3.txt" />
