@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class GameManager : MonoBehaviour {
 
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour {
 
     GameObject player;
     GameObject[] enemies;
+    String[] positions;
     IASimple enemyIA;
     PlayerMovement playerMov;
 	Animator playerAnim;
@@ -22,7 +24,6 @@ public class GameManager : MonoBehaviour {
 
     private WaitForSeconds m_StartWait;
     private WaitForSeconds m_EndWait;
-
 
     public GameObject Pause;
     public GameObject Continuar;
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour {
 		audio = player.GetComponent<AudioSource> ();
 
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        positions = new String[5]; 
 
         StartCoroutine(GameLoop());
     }
@@ -86,10 +88,13 @@ public class GameManager : MonoBehaviour {
 	private IEnumerator EndGame()
 	{
 		playerMov.enabled = false;
+        Debug.Log(PositionManager.position);
+        positions[PositionManager.position] = player.name;
         for (int i = 0; i < enemies.Length; i++)
         {
             enemyIA = enemies[i].GetComponent<IASimple>();
             enemyIA.TurnOffIA();
+            positions[enemyIA.position] = enemies[i].name;
         }
 
 		if (PositionManager.position == 1) {
@@ -102,8 +107,6 @@ public class GameManager : MonoBehaviour {
                 enemyAnim.SetBool("Lose", true);
                 iacapsule.direction = 0;
             }
-			
-			Victory.text = "¡Felicidades! \n \n" + "Has acabado primero";
 
 		} else {
             for (int i = 0; i < enemies.Length; i++)
@@ -113,10 +116,11 @@ public class GameManager : MonoBehaviour {
             }
 			playerAnim.SetBool ("Lose", true);
 			playercapsule.direction = 0;
-			Victory.text = "Lástima... \n \n" + "Has acabado segundo";
 		}
 
-		yield return new WaitForSeconds(10f);
+        Victory.text = "Primero: " + positions[1] + "\nSegundo: " + positions[2] + "\nTercero: " + positions[3] + "\nCuarto: " + positions[4];
+
+        yield return new WaitForSeconds(10f);
 
 		loadScene ();
 	}

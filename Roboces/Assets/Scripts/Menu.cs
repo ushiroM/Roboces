@@ -14,6 +14,11 @@ public class Menu : MonoBehaviour {
 	}
 
 	public void Instrucciones (){
-		
-	}
+        SceneManager.LoadScene("Instrucciones");
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
 }

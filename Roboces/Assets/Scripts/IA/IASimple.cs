@@ -27,7 +27,7 @@ public class IASimple : MonoBehaviour {
     void Start () {
 
         agente = GetComponent<NavMeshAgent>();
-		animator = GetComponent<Animator> ();
+		animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
 		particle.SetActive (false);
 		particleVelocidad.SetActive (false);
@@ -56,7 +56,10 @@ public class IASimple : MonoBehaviour {
 
     void Update () {
 
-        if (agente.remainingDistance < 1.5f) NextWaypoint();
+        if (agente.isActiveAndEnabled)
+        {
+            if (agente.remainingDistance < 1.5f) NextWaypoint();
+        }
 
         var distance = transform.position - player.transform.position;
 		if ((distance.sqrMagnitude < 80 && IAenable == true) || (distance.sqrMagnitude > 300 && IAenable == true))
@@ -99,7 +102,7 @@ public class IASimple : MonoBehaviour {
     {
         activo = false;
 		IAenable = false;
-		animator.SetBool ("IArun", false);
+		animator.SetBool("IArun", false);
 		particle.SetActive (false);
 		particleVelocidad.SetActive (false);
     }
@@ -115,6 +118,6 @@ public class IASimple : MonoBehaviour {
 
 	public void TurnOffIA()
 	{
-		agente.Stop ();
+        agente.enabled = false;
 	}
 }
