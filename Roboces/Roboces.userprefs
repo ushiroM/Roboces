@@ -1,13 +1,8 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\HUD\HudManager.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Pausa.cs">
     <Files>
-      <File FileName="Assets\Scripts\floatingLight.cs" Line="13" Column="2" />
-      <File FileName="Assets\Scripts\MarkWaypoint.cs" Line="46" Column="25" />
-      <File FileName="Assets\Scripts\IA\IASimple.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\MarkCheckpoint.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GameManager.cs" Line="81" Column="25" />
-      <File FileName="Assets\Scripts\HUD\HudManager.cs" Line="14" Column="34" />
+      <File FileName="Assets\Scripts\Pausa.cs" Line="7" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

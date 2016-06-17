@@ -177,12 +177,13 @@
      <Compile Include="Assets\Scripts\IA\IASimple.cs" />
      <Compile Include="Assets\Scripts\MarkCheckpoint.cs" />
      <Compile Include="Assets\Scripts\MarkWaypoint.cs" />
+     <Compile Include="Assets\Scripts\Menu.cs" />
+     <Compile Include="Assets\Scripts\Pausa.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\Player\controlCheckpoint.cs" />
      <Compile Include="Assets\Scripts\TargetFrameRate.cs" />
      <Compile Include="Assets\Scripts\WaypointManager.cs" />
      <Compile Include="Assets\Scripts\floatingLight.cs" />
-     <Compile Include="Assets\Scripts\loadScene.cs" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Depth Cutout.shader" />
      <None Include="Assets\NGUI\ReadMe - 3.5.3.txt" />
      <None Include="Assets\NGUI\Examples\Models\Orc\Orc Skin.shader" />

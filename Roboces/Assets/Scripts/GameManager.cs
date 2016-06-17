@@ -23,6 +23,14 @@ public class GameManager : MonoBehaviour {
     private WaitForSeconds m_StartWait;
     private WaitForSeconds m_EndWait;
 
+
+    public GameObject Pause;
+    public GameObject Continuar;
+    public GameObject Exit;
+    public GameObject Restart;
+
+
+
     void Start () {
 
         m_StartWait = new WaitForSeconds(m_StartDelay);
@@ -141,9 +149,23 @@ public class GameManager : MonoBehaviour {
 		if (MarkCheckpoint.playerLap > MarkCheckpoint.maxlaps) {
 			StartCoroutine (EndGame ());
 		}
+        if (Input.GetKey(KeyCode.Escape))
+        {
+           ActivePause();
+        }
 	}
+
 
 	void loadScene(){
 		SceneManager.LoadScene("Menu");
 	}
+
+    public void ActivePause()
+    {
+        Pause.SetActive(true);
+        Continuar.SetActive(true);
+        Exit.SetActive(true);
+        Restart.SetActive(true);
+        Time.timeScale = 0;
+    }
 }
