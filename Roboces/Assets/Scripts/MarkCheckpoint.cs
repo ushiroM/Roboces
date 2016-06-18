@@ -15,7 +15,7 @@ public class MarkCheckpoint : MonoBehaviour {
   
 	void Start(){
 		playerLap = 1;
-		maxlaps = 3;
+		maxlaps = 1;
 	}
 
 	void Awake() {

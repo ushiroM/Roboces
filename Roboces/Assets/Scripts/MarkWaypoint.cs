@@ -12,6 +12,7 @@ public class MarkWaypoint : MonoBehaviour {
     controlCheckpoint controlPlayer;
 	IASimple ia;
 	int positionToGive;
+	int Lap = 1;
 
     void Start () {
 		playerWay = 1;
@@ -24,20 +25,27 @@ public class MarkWaypoint : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider other) {
+		
 
         if (other.gameObject == player)
         {
             if (playerCollided == false)
             {
-                playerWay++;
-                playerCollided = true;
-				PositionManager.position = positionToGive;
-				positionToGive++;
-				if (positionToGive > 4) positionToGive = 1;
-                if (controlPlayer.checkpoint == transform)
-                {
-                    controlPlayer.nextWaypoint();
-                }
+				playerWay++;
+				playerCollided = true;
+				if (Lap < MarkCheckpoint.playerLap) {
+					PositionManager.position = 1;
+					Lap++;
+					positionToGive = 2;
+				} else if (Lap >= MarkCheckpoint.playerLap) {
+					PositionManager.position = positionToGive;
+					positionToGive++;
+					if (positionToGive > 4)
+						positionToGive = 1;
+				}
+				if (controlPlayer.checkpoint == transform) {
+					controlPlayer.nextWaypoint();
+				}
             }
         }
         else
@@ -47,35 +55,22 @@ public class MarkWaypoint : MonoBehaviour {
 					ia = enemies [i].GetComponent<IASimple> ();
 					ia.enemyWay++;
 					enemyCollided = true;
-					ia.position = positionToGive;
-					positionToGive++;
-					if (positionToGive > 4)
-						positionToGive = 1;
+					if (Lap < ia.lap) {
+						ia.position = 1;
+						Lap++;
+						positionToGive = 2;
+					} else if (Lap >= ia.lap) {
+						ia.position = positionToGive;
+						positionToGive++;
+						if (positionToGive > 4)
+							positionToGive = 1;
+					}
 					if (ia.enemyWay == WaypointManager.waypointSize)
 						ia.lapComplete = true;
 				}
 			}
         }
     }
-		
-    /*void Update()
-    {
-        if (MarkCheckpoint.playerLap > MarkCheckpoint.enemyLap)
-        {
-            PositionManager.position = 1;
-        }
-        else if (MarkCheckpoint.playerLap < MarkCheckpoint.enemyLap)
-        {
-            PositionManager.position = 2;
-        }
-        else if(MarkCheckpoint.playerLap == MarkCheckpoint.enemyLap)
-        {
-            if (playerWay > enemyWay) PositionManager.position = 1;
-            else if (playerWay < enemyWay)
-                PositionManager.position = 2;
-        }
-    }*/
-
     void OnTriggerExit(Collider other)
     {
 		if (other.gameObject == player) {

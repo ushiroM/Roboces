@@ -88,7 +88,6 @@ public class GameManager : MonoBehaviour {
 	private IEnumerator EndGame()
 	{
 		playerMov.enabled = false;
-        Debug.Log(PositionManager.position);
         positions[PositionManager.position] = player.name;
         for (int i = 0; i < enemies.Length; i++)
         {
@@ -112,7 +111,9 @@ public class GameManager : MonoBehaviour {
             for (int i = 0; i < enemies.Length; i++)
             {
                 enemyAnim = enemies[i].GetComponent<Animator>();
-                enemyAnim.SetBool("Win", true);
+				enemyIA = enemies [i].GetComponent<IASimple>();
+				if (enemyIA.position == 1) enemyAnim.SetBool("Win", true);
+				else enemyAnim.SetBool("Lose", true);
             }
 			playerAnim.SetBool ("Lose", true);
 			playercapsule.direction = 0;
